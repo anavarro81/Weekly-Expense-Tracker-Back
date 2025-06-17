@@ -12,13 +12,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLimit = void 0;
+exports.updateLimitAmount = exports.getLimit = void 0;
 const setting_model_1 = __importDefault(require("../models/setting.model"));
 const getLimit = () => __awaiter(void 0, void 0, void 0, function* () {
-    const settings = yield setting_model_1.default.find({});
+    const settings = yield setting_model_1.default.findOne({});
     if (!settings) {
         throw new Error('No se ha encontrado configuracion');
     }
     return settings;
 });
 exports.getLimit = getLimit;
+const updateLimitAmount = (id, limit) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!id) {
+        throw new Error('id del límite no definido ');
+    }
+    if (!limit || limit <= 0) {
+        throw new Error(`El importe límite: ${limit} no es correcto`);
+    }
+    const updatedLimit = yield setting_model_1.default.findByIdAndUpdate(id, {
+        $set: {
+            limit: limit
+        },
+    }, { new: true });
+    console.log('updatedLimit ', updatedLimit);
+    if (!updatedLimit) {
+        throw new Error('Error actualizando el importe límite');
+    }
+    return updatedLimit;
+});
+exports.updateLimitAmount = updateLimitAmount;
