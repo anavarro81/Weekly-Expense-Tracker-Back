@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const setting_routes_1 = __importDefault(require("./src/routes/setting.routes"));
+const categories_routes_1 = __importDefault(require("./src/routes/categories.routes"));
 // Carga las variables de entorno. Se pueden usar en todo el proyecto. 
 require("dotenv/config");
 const cors_1 = __importDefault(require("cors"));
@@ -17,6 +18,7 @@ app.use((0, cors_1.default)(cors_2.corsConfig));
 // Permite leer los datos que vienen de un formulario
 app.use(express_1.default.json());
 app.use('/settings', setting_routes_1.default);
+app.use('/categories', categories_routes_1.default);
 app.use('/', (req, res) => {
     res.send('Server is running...');
 });
