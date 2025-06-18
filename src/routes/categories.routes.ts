@@ -1,9 +1,10 @@
 import express from "express";
-import {newCategory} from '../controllers/categories.controller'
+import {newCategory, loadCategories} from '../controllers/categories.controller'
 
 
 const categoryRoute = express.Router();
 
 categoryRoute.post('/', newCategory);
+categoryRoute.post('/loadcategories', loadCategories)
 
 export default categoryRoute;

@@ -18,3 +18,24 @@ export const newCategory = async (req: Request, res: Response): Promise<void> =>
     }
 
 }
+
+export const loadCategories = async (req: Request, res: Response): Promise<void> => {
+
+    try {
+        const createdCategories = await categoryService.loadCategories(req.body)
+        res.status(201).json(createdCategories)
+        
+    } catch (error: any) {
+        console.error('Error al insertar las categorias ', error.message)
+        res.status(500).json({message: `Error al insertar las categorias ${error.message}`})
+    }
+
+}
+
+export const getAllCategories = async (req: Request, res: Response): Promise<void> => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}

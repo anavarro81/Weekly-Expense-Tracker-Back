@@ -42,7 +42,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.newCategory = void 0;
+exports.getAllCategories = exports.loadCategories = exports.newCategory = void 0;
 const categoryService = __importStar(require("../services/category.service"));
 const newCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -59,3 +59,21 @@ const newCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.newCategory = newCategory;
+const loadCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const createdCategories = yield categoryService.loadCategories(req.body);
+        res.status(201).json(createdCategories);
+    }
+    catch (error) {
+        console.error('Error al insertar las categorias ', error.message);
+        res.status(500).json({ message: `Error al insertar las categorias ${error.message}` });
+    }
+});
+exports.loadCategories = loadCategories;
+const getAllCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+    }
+    catch (error) {
+    }
+});
+exports.getAllCategories = getAllCategories;

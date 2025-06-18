@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const CategorySchema = new mongoose_1.Schema({
-    name: { type: String, required: true }
+    name: { type: String, required: true, unique: true }
 }, {
     timestamps: true
 });

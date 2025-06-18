@@ -7,4 +7,5 @@ const express_1 = __importDefault(require("express"));
 const categories_controller_1 = require("../controllers/categories.controller");
 const categoryRoute = express_1.default.Router();
 categoryRoute.post('/', categories_controller_1.newCategory);
+categoryRoute.post('/loadcategories', categories_controller_1.loadCategories);
 exports.default = categoryRoute;

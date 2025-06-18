@@ -5,7 +5,7 @@ export interface ICategory extends Document {
 }
 
 const CategorySchema = new Schema({
-    name: {type: String, required: true}
+    name: {type: String, required: true, unique: true}
 },
 {
     timestamps: true
