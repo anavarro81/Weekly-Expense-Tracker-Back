@@ -5,7 +5,7 @@ import categoryRoute from './src/routes/categories.routes'
 import 'dotenv/config'
 import cors from 'cors';
 import {corsConfig} from './config/cors'
-
+import {errorHandler} from './src/middlewares/error.middleware'
 // Carga la conexion a la bbdd
 import {connectDB} from './config/bd'
 
@@ -23,11 +23,11 @@ app.use('/settings', settingRoute)
 app.use('/categories', categoryRoute)
 
 app.use('/', (req, res) => {
-    res.send('Server is running...')
+    res.status(404).json({message: 'La url solicitada no existe'})
 })
 
 
-
+app.use(errorHandler)
 
 
 export default app; 

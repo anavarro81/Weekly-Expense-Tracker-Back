@@ -10,6 +10,7 @@ const categories_routes_1 = __importDefault(require("./src/routes/categories.rou
 require("dotenv/config");
 const cors_1 = __importDefault(require("cors"));
 const cors_2 = require("./config/cors");
+const error_middleware_1 = require("./src/middlewares/error.middleware");
 // Carga la conexion a la bbdd
 const bd_1 = require("./config/bd");
 const app = (0, express_1.default)();
@@ -20,6 +21,7 @@ app.use(express_1.default.json());
 app.use('/settings', setting_routes_1.default);
 app.use('/categories', categories_routes_1.default);
 app.use('/', (req, res) => {
-    res.send('Server is running...');
+    res.status(404).json({ message: 'La url solicitada no existe' });
 });
+app.use(error_middleware_1.errorHandler);
 exports.default = app;

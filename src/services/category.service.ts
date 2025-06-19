@@ -40,10 +40,14 @@ export const loadCategories = async (categories: Partial<ICategory>[]): Promise<
 
 }
 
-// export const getAllCategories = async (): Promise<ICategory[]> => {
-//     try {
-//         CategoryModel.find()
-//     } catch (error) {
+export const getAllCategoriesService = async (): Promise<ICategory[]> => {
+    try {
         
-//     }
-// }
+        const categories = await CategoryModel.find({})        
+        return categories as ICategory[]
+
+    } catch (error: unknown) {        
+        throw error
+        
+    }
+}

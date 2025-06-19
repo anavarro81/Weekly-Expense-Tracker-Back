@@ -44,18 +44,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateLimitAmount = exports.getLimit = void 0;
 const settingService = __importStar(require("../services/setting.service"));
-const getLimit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getLimit = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const settings = yield settingService.getLimit();
         res.status(200).json(settings);
     }
     catch (error) {
-        console.log('error ', error);
-        res.status(500).json({ "message": "error recuperando configuración", "error": error.message });
+        next(error);
     }
 });
 exports.getLimit = getLimit;
-const updateLimitAmount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updateLimitAmount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const { limit } = req.body;
@@ -63,7 +62,7 @@ const updateLimitAmount = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(200).json(updatedLimit);
     }
     catch (error) {
-        res.status(500).json({ message: "error al actualizar el límite", "error": error.message });
+        next(error);
     }
 });
 exports.updateLimitAmount = updateLimitAmount;

@@ -44,7 +44,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllCategories = exports.loadCategories = exports.newCategory = void 0;
 const categoryService = __importStar(require("../services/category.service"));
-const newCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const newCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newCategoryData = req.body;
         if (!newCategoryData || Object.keys(newCategoryData).length === 0) {
@@ -54,26 +54,27 @@ const newCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(201).json(createdCategory);
     }
     catch (error) {
-        console.error('Error creando la categoria ', error);
-        res.status(500).json({ "message": "error recuperando configuración", "error": error.message });
+        next(error);
     }
 });
 exports.newCategory = newCategory;
-const loadCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const loadCategories = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const createdCategories = yield categoryService.loadCategories(req.body);
         res.status(201).json(createdCategories);
     }
     catch (error) {
-        console.error('Error al insertar las categorias ', error.message);
-        res.status(500).json({ message: `Error al insertar las categorias ${error.message}` });
+        next(error);
     }
 });
 exports.loadCategories = loadCategories;
-const getAllCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllCategories = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const categories = yield categoryService.getAllCategoriesService();
+        res.status(200).json(categories);
     }
     catch (error) {
+        next(error);
     }
 });
 exports.getAllCategories = getAllCategories;

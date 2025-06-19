@@ -1,7 +1,7 @@
 import * as categoryService from '../services/category.service'
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export const newCategory = async (req: Request, res: Response): Promise<void> => {    
+export const newCategory = async (req: Request, res: Response, next: NextFunction): Promise<void> => {    
     try {        
         const newCategoryData = req.body
 
@@ -13,29 +13,32 @@ export const newCategory = async (req: Request, res: Response): Promise<void> =>
         res.status(201).json(createdCategory)        
         
     } catch (error: any) {
-        console.error('Error creando la categoria ', error)
-        res.status(500).json({"message": "error recuperando configuración", "error": error.message})
+        next(error)
+        
     }
 
 }
 
-export const loadCategories = async (req: Request, res: Response): Promise<void> => {
+export const loadCategories = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     try {
         const createdCategories = await categoryService.loadCategories(req.body)
         res.status(201).json(createdCategories)
         
     } catch (error: any) {
-        console.error('Error al insertar las categorias ', error.message)
-        res.status(500).json({message: `Error al insertar las categorias ${error.message}`})
+        next(error);
+        
     }
 
 }
 
-export const getAllCategories = async (req: Request, res: Response): Promise<void> => {
+export const getAllCategories = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    
     try {
-        
-    } catch (error) {
-        
+        const categories = await categoryService.getAllCategoriesService()
+        res.status(200).json(categories)
+    } catch (error:any) {
+        next(error);
+
     }
 }

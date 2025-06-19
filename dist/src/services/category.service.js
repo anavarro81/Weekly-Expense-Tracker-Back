@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadCategories = exports.createCategory = void 0;
+exports.getAllCategoriesService = exports.loadCategories = exports.createCategory = void 0;
 const category_model_1 = __importDefault(require("../models/category.model"));
 const createCategory = (categoryData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -46,9 +46,13 @@ const loadCategories = (categories) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.loadCategories = loadCategories;
-// export const getAllCategories = async (): Promise<ICategory[]> => {
-//     try {
-//         CategoryModel.find()
-//     } catch (error) {
-//     }
-// }
+const getAllCategoriesService = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const categories = yield category_model_1.default.find({});
+        return categories;
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.getAllCategoriesService = getAllCategoriesService;
