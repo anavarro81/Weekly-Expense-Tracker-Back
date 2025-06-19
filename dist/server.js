@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const setting_routes_1 = __importDefault(require("./src/routes/setting.routes"));
 const categories_routes_1 = __importDefault(require("./src/routes/categories.routes"));
+const DashboardData_routes_1 = __importDefault(require("./src/routes/DashboardData.routes"));
 // Carga las variables de entorno. Se pueden usar en todo el proyecto. 
 require("dotenv/config");
 const cors_1 = __importDefault(require("cors"));
@@ -20,6 +21,7 @@ app.use((0, cors_1.default)(cors_2.corsConfig));
 app.use(express_1.default.json());
 app.use('/settings', setting_routes_1.default);
 app.use('/categories', categories_routes_1.default);
+app.use('/dashboard', DashboardData_routes_1.default);
 app.use('/', (req, res) => {
     res.status(404).json({ message: 'La url solicitada no existe' });
 });

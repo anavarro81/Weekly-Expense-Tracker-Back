@@ -1,6 +1,9 @@
 import express from 'express';
+
 import settingRoute from './src/routes/setting.routes'
 import categoryRoute from './src/routes/categories.routes'
+import dashboardRoute from './src/routes/DashboardData.routes'
+
 // Carga las variables de entorno. Se pueden usar en todo el proyecto. 
 import 'dotenv/config'
 import cors from 'cors';
@@ -21,6 +24,7 @@ app.use(express.json())
 
 app.use('/settings', settingRoute)
 app.use('/categories', categoryRoute)
+app.use('/dashboard', dashboardRoute)
 
 app.use('/', (req, res) => {
     res.status(404).json({message: 'La url solicitada no existe'})
