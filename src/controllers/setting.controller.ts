@@ -16,9 +16,9 @@ export const updateLimitAmount = async (req: Request, res: Response, next: NextF
 
     try {       
 
-        const {id} = req.params;
+        
         const {limit}= req.body
-        const updatedLimit = await settingService.updateLimitAmount(id, limit)
+        const updatedLimit = await settingService.updateLimitAmount("settingsID", limit)
         res.status(200).json(updatedLimit)
 
     } catch (error: any) {

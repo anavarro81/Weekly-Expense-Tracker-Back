@@ -42,31 +42,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getExpenses = exports.loadExpenses = void 0;
-const expenseService = __importStar(require("../services/expense.service"));
-const loadExpenses = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('loadExpenses controller', req.body);
+exports.getWeeklyReport = void 0;
+const settingService = __importStar(require("../services/setting.service"));
+const categoriesService = __importStar(require("../services/category.service"));
+const expensesService = __importStar(require("../services/expense.service"));
+const getWeeklyReport = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const createdCategories = yield expenseService.loadExpenses(req.body);
-        res.status(201).json(createdCategories);
-    }
-    catch (error) {
-        next(error);
-    }
-});
-exports.loadExpenses = loadExpenses;
-const getExpenses = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { page = 1, limit = 5 } = req.query;
         const options = {
-            page: parseInt(page, 10),
-            limit: parseInt(limit, 10)
+            page: 1,
+            limit: 5
         };
-        const expenses = yield expenseService.getExpenses(options);
-        res.status(200).json(expenses);
+        const [weeklyLimit, categories, expenses] = yield Promise.all([
+            settingService.getLimit(),
+            categoriesService.getAllCategoriesService(),
+            expensesService.getExpenses(options)
+        ]);
+        res.status(200).json({ weeklyLimit, categories, expenses });
     }
     catch (error) {
         next(error);
     }
 });
-exports.getExpenses = getExpenses;
+exports.getWeeklyReport = getWeeklyReport;

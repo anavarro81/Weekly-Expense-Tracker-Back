@@ -33,7 +33,7 @@ const updateLimitAmount = (id, limit) => __awaiter(void 0, void 0, void 0, funct
         $set: {
             limit: limit
         },
-    }, { new: true });
+    }, { new: true, upsert: true });
     console.log('updatedLimit ', updatedLimit);
     if (!updatedLimit) {
         throw new Error('Error actualizando el importe límite');

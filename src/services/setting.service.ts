@@ -28,7 +28,8 @@ export const updateLimitAmount = async (id: string, limit: number) => {
             },
 
         }, 
-        {new: true}
+        
+        {new: true, upsert: true}
     )
 
     console.log ('updatedLimit ', updatedLimit)

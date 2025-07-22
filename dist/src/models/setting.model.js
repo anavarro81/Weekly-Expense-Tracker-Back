@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const SettingSchema = new mongoose_1.Schema({
+    _id: { type: String, default: "settingsID" },
     limit: { type: Number, required: true },
 }, {
     timestamps: true,

@@ -56,9 +56,8 @@ const getLimit = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 exports.getLimit = getLimit;
 const updateLimitAmount = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
         const { limit } = req.body;
-        const updatedLimit = yield settingService.updateLimitAmount(id, limit);
+        const updatedLimit = yield settingService.updateLimitAmount("settingsID", limit);
         res.status(200).json(updatedLimit);
     }
     catch (error) {
