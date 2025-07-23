@@ -8,4 +8,5 @@ const expense_controller_1 = require("../controllers/expense.controller");
 const expenseRoute = express_1.default.Router();
 expenseRoute.post('/load-expenses', expense_controller_1.loadExpenses);
 expenseRoute.get('/', expense_controller_1.getExpenses);
+expenseRoute.put('/', expense_controller_1.newExpense);
 exports.default = expenseRoute;

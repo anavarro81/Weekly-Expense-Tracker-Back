@@ -39,3 +39,12 @@ export const getExpenses = async (options: PaginationOptions): Promise<IExpense[
         throw error
     }
 }
+
+export const newExpense = async (expense: Partial<IExpense>): Promise<IExpense> => { 
+    try {
+        const insertedExpense = await ExpenseModel.create(expense);
+        return insertedExpense as IExpense;
+    } catch (error) {
+        throw error;
+    }
+}

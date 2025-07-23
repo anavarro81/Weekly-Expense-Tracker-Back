@@ -35,3 +35,18 @@ export const getExpenses = async (req: Request, res: Response, next: NextFunctio
         next(error)
     }
 }
+
+export const newExpense = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
+
+    console.log ('Estoy en new Expense')
+    console.log ('req.body', req.body)
+    
+    try {
+        const newExpense = await expenseService.newExpense(req.body)    
+        console.log('newExpense = ', newExpense)
+        res.status(201).json(newExpense)    
+    } catch (error: any) {
+        next(error)
+    }
+
+}

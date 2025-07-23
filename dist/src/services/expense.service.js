@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getExpenses = exports.loadExpenses = void 0;
+exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
 const expense_model_1 = __importDefault(require("../models/expense.model"));
 const loadExpenses = (expenses) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('expenses ', expenses);
@@ -41,3 +41,13 @@ const getExpenses = (options) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getExpenses = getExpenses;
+const newExpense = (expense) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const insertedExpense = yield expense_model_1.default.create(expense);
+        return insertedExpense;
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.newExpense = newExpense;
