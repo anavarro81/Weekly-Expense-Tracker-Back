@@ -16,7 +16,9 @@ const ExpenseSchema = new Schema({
     category : { type:   String, required: true } ,    
     amount : { type:   Number, required: true } ,   
     
-})
+}, {
+    timestamps: true,
+});
 
 const ExpenseModel = model<IExpense>("Expense", ExpenseSchema)
 export default ExpenseModel

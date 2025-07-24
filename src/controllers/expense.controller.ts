@@ -38,11 +38,25 @@ export const getExpenses = async (req: Request, res: Response, next: NextFunctio
 
 export const newExpense = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
 
-    console.log ('Estoy en new Expense')
-    console.log ('req.body', req.body)
     
     try {
         const newExpense = await expenseService.newExpense(req.body)    
+        console.log('newExpense = ', newExpense)
+        res.status(201).json(newExpense)    
+    } catch (error: any) {
+        next(error)
+    }
+
+}
+
+export const editExpense = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
+
+        try {
+
+            const {id} = req.params;
+            const expenseData = req.body
+
+        const newExpense = await expenseService.editExpense(id, expenseData)    
         console.log('newExpense = ', newExpense)
         res.status(201).json(newExpense)    
     } catch (error: any) {

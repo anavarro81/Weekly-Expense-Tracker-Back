@@ -48,3 +48,31 @@ export const newExpense = async (expense: Partial<IExpense>): Promise<IExpense> 
         throw error;
     }
 }
+
+export const editExpense = async (id: string, expenseData: Partial<IExpense>): Promise<IExpense> => { 
+    
+    try {
+
+        const {date, concept, category, amount } = expenseData
+
+        const editedExpense = await ExpenseModel.findByIdAndUpdate(
+            id, {
+            $set: {
+                date: date,
+                concept: concept, 
+                category: category,
+                amount: amount    
+            },
+        },
+        {new: true}
+    )
+
+        if (!editedExpense) {
+            throw new Error('Error al actualizar el gasto')
+        }
+        return editedExpense as IExpense;
+    } catch (error) {
+        throw error;
+    }
+}
+

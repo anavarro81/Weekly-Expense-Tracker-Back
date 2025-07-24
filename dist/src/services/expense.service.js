@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
+exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
 const expense_model_1 = __importDefault(require("../models/expense.model"));
 const loadExpenses = (expenses) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('expenses ', expenses);
@@ -51,3 +51,24 @@ const newExpense = (expense) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.newExpense = newExpense;
+const editExpense = (id, expenseData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { date, concept, category, amount } = expenseData;
+        const editedExpense = yield expense_model_1.default.findByIdAndUpdate(id, {
+            $set: {
+                date: date,
+                concept: concept,
+                category: category,
+                amount: amount
+            },
+        }, { new: true });
+        if (!editedExpense) {
+            throw new Error('Error al actualizar el gasto');
+        }
+        return editedExpense;
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.editExpense = editExpense;

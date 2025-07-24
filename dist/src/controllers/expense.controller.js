@@ -42,7 +42,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
+exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
 const expenseService = __importStar(require("../services/expense.service"));
 const loadExpenses = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('loadExpenses controller', req.body);
@@ -71,8 +71,6 @@ const getExpenses = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.getExpenses = getExpenses;
 const newExpense = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Estoy en new Expense');
-    console.log('req.body', req.body);
     try {
         const newExpense = yield expenseService.newExpense(req.body);
         console.log('newExpense = ', newExpense);
@@ -83,3 +81,16 @@ const newExpense = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.newExpense = newExpense;
+const editExpense = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const expenseData = req.body;
+        const newExpense = yield expenseService.editExpense(id, expenseData);
+        console.log('newExpense = ', newExpense);
+        res.status(201).json(newExpense);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.editExpense = editExpense;

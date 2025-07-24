@@ -6,6 +6,8 @@ const ExpenseSchema = new mongoose_1.Schema({
     concept: { type: String, required: true },
     category: { type: String, required: true },
     amount: { type: Number, required: true },
+}, {
+    timestamps: true,
 });
 const ExpenseModel = (0, mongoose_1.model)("Expense", ExpenseSchema);
 exports.default = ExpenseModel;
