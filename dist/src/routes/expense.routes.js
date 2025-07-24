@@ -10,4 +10,5 @@ expenseRoute.post('/load-expenses', expense_controller_1.loadExpenses);
 expenseRoute.get('/', expense_controller_1.getExpenses);
 expenseRoute.post('/', expense_controller_1.newExpense);
 expenseRoute.put('/:id', expense_controller_1.editExpense);
+expenseRoute.delete('/:id', expense_controller_1.deleteExpense);
 exports.default = expenseRoute;

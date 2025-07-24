@@ -42,7 +42,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
+exports.deleteExpense = exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
 const expenseService = __importStar(require("../services/expense.service"));
 const loadExpenses = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('loadExpenses controller', req.body);
@@ -94,3 +94,14 @@ const editExpense = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.editExpense = editExpense;
+const deleteExpense = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const deleteExpense = yield expenseService.deleteExpense(id);
+        res.status(200).json(deleteExpense);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.deleteExpense = deleteExpense;

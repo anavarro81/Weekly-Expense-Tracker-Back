@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
+exports.deleteExpense = exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
 const expense_model_1 = __importDefault(require("../models/expense.model"));
 const loadExpenses = (expenses) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('expenses ', expenses);
@@ -72,3 +72,16 @@ const editExpense = (id, expenseData) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.editExpense = editExpense;
+const deleteExpense = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const deletedExpense = yield expense_model_1.default.findByIdAndDelete(id);
+        if (!deletedExpense) {
+            throw new Error('Error al borrar el gasto');
+        }
+        return deletedExpense;
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.deleteExpense = deleteExpense;

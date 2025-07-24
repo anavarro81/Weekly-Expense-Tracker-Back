@@ -76,3 +76,18 @@ export const editExpense = async (id: string, expenseData: Partial<IExpense>): P
     }
 }
 
+export const deleteExpense = async (id: string): Promise<IExpense> => {
+    try {
+        
+        const deletedExpense = await ExpenseModel.findByIdAndDelete(id)
+
+        if (!deletedExpense) {
+            throw new Error('Error al borrar el gasto')
+        }
+        
+        return deletedExpense as IExpense;
+
+    } catch (error) {
+        throw error;   
+    }
+} 

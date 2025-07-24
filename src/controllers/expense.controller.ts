@@ -64,3 +64,15 @@ export const editExpense = async (req: Request, res: Response, next: NextFunctio
     }
 
 }
+
+export const deleteExpense = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
+
+        try {
+        const {id} = req.params;
+        const deleteExpense = await expenseService.deleteExpense (id)            
+        res.status(200).json(deleteExpense)    
+    } catch (error: any) {
+        next(error)
+    }
+
+}
