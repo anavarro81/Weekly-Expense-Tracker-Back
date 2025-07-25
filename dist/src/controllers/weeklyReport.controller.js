@@ -52,12 +52,13 @@ const getWeeklyReport = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
             page: 1,
             limit: 5
         };
-        const [weeklyLimit, categories, expenses] = yield Promise.all([
+        const [weeklyLimit, categories, expenses, numExpenses] = yield Promise.all([
             settingService.getLimit(),
             categoriesService.getAllCategoriesService(),
-            expensesService.getExpenses(options)
+            expensesService.getExpenses(options),
+            expensesService.countExpenses()
         ]);
-        res.status(200).json({ weeklyLimit, categories, expenses });
+        res.status(200).json({ weeklyLimit, categories, expenses, numExpenses });
     }
     catch (error) {
         next(error);

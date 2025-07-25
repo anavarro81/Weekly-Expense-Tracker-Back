@@ -14,15 +14,16 @@ export const getWeeklyReport = async (req: Request, res: Response, next: NextFun
             limit: 5
             }
 
-            const [weeklyLimit, categories, expenses] = await Promise.all([
+            const [weeklyLimit, categories, expenses, numExpenses] = await Promise.all([
             settingService.getLimit(),
             categoriesService.getAllCategoriesService(),
-            expensesService.getExpenses(options)
+            expensesService.getExpenses(options),
+            expensesService.countExpenses()
     ]);
 
 
             
-            res.status(200).json({weeklyLimit, categories, expenses})
+            res.status(200).json({weeklyLimit, categories, expenses, numExpenses})
     
     } catch (error: any) {
         next(error)        

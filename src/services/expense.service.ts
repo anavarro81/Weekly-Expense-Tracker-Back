@@ -76,6 +76,20 @@ export const editExpense = async (id: string, expenseData: Partial<IExpense>): P
     }
 }
 
+export const countExpenses = async (): Promise<Number> => {  
+
+    try {
+        
+        const numExpenses = await ExpenseModel.countDocuments({});
+        console.log('numExpenses : ', numExpenses);
+        
+        return numExpenses 
+    
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const deleteExpense = async (id: string): Promise<IExpense> => {
     try {
         

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteExpense = exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
+exports.deleteExpense = exports.countExpenses = exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
 const expense_model_1 = __importDefault(require("../models/expense.model"));
 const loadExpenses = (expenses) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('expenses ', expenses);
@@ -72,6 +72,17 @@ const editExpense = (id, expenseData) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.editExpense = editExpense;
+const countExpenses = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const numExpenses = yield expense_model_1.default.countDocuments({});
+        console.log('numExpenses : ', numExpenses);
+        return numExpenses;
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.countExpenses = countExpenses;
 const deleteExpense = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const deletedExpense = yield expense_model_1.default.findByIdAndDelete(id);
