@@ -42,21 +42,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.login = exports.register = void 0;
 const authService = __importStar(require("../services/auth.service"));
+const validator_1 = require("../utils/validator");
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
-        const validUser = yield authService.register(userData);
-        if (validUser.valid) {
-            res.status(201).json({ message: "Usuario correcto" });
-        }
-        else {
+        const validUser = (0, validator_1.validateUserRegister)(userData);
+        if (!validUser.valid) {
             res.status(400).json({ message: "Datos del usuario incorrectos", error: validUser.errors });
         }
+        const createdUser = yield authService.register(userData);
+        res.status(201).json({ createdUser });
     }
     catch (error) {
         next(error);
     }
 });
 exports.register = register;
+const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const userData = req.body;
+    const validUser = (0, validator_1.validateUserLogin)(userData);
+    if (!validUser.valid) {
+        res.status(400).json({ message: "Datos del usuario incorrectos", error: validUser.errors });
+    }
+    const userInfo = yield authService.login(userData);
+    res.status(200).json({ userInfo });
+});
+exports.login = login;

@@ -38,7 +38,7 @@ const userSchema = Joi.object({
     }),
 });
 
-const authrSchema = Joi.object({
+const loginSchema = Joi.object({
   email: Joi.string()
     .email()
     .required()
@@ -47,11 +47,10 @@ const authrSchema = Joi.object({
        'any.required': '"email" es obligatorio',
     }),
     password: Joi.string()    
-    .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
     .required()
     .messages({
-     'string.pattern.base': '"password" debe de tener entre 6-8 caracteres',   
-     'any.required': '"password" is required',
+     'string.empty': 'La contraseña no puede estar vacía',   
+     'any.required': '"password" es obligatoria',
     })
 })
 
@@ -76,7 +75,7 @@ export const validateUserRegister = (payload: Partial<IUser>): ValidationResult 
 export const validateUserLogin = (payload: Partial<IUser>): ValidationResult => { 
     
     // El parametro: abortEarly: false hace que contiene validando para devolver todos los errores. 
-    const { error } = authrSchema.validate(payload, { abortEarly: false });
+    const { error } = loginSchema.validate(payload, { abortEarly: false });
 
     if (!error) {
     return { valid: true, errors: [] };

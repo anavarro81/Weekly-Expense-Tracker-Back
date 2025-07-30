@@ -1,18 +1,82 @@
+
 import UserModel, {IUser} from "../models/user.model";
 import {validateUserRegister, ValidationResult} from '../utils/validator' 
+import {hashpassword} from '../utils/auth'
+import {generateSign} from '../utils/jwt'
+import bcrypt from 'bcrypt';
+import { Types } from 'mongoose';
 
-export const register = async (userData: Partial<IUser>): Promise<ValidationResult> => {
+// Interfaz para la respuesta de login
+export interface IUserInfo {
+    email: string;
+    user: string;
+    token: string;
+}
 
-        const validUser =validateUserRegister(userData)
-        return validUser    
 
-    // try {
-    //     // Crea una instancia del modelo y la guarda en la base de datos. 
-    //     const savedCategory = await CategoryModel.create(categoryData);        
-    //     return savedCategory
-    // } catch (error) {
-    //     console.error('Error en el registro de usuario', error); 
-    //     throw error;
-    // }
+export const register = async (userData: Partial<IUser>): Promise<ValidationResult | IUser> => {
+        
+        try {
+
+            const {user, email, password} = userData
+
+            if (await UserModel.exists( {email} )) {
+                const conflict = new Error('El email ya está en uso');                
+                throw conflict;
+            }
+            
+            const hashedPassword = await hashpassword(password!) 
+            const newUser = await UserModel.create({user, email, password: hashedPassword})
+            return newUser    
+            
+        } catch (error) {
+            throw error            
+        }
 
 }
+
+export const login = async (userData: Partial<IUser>): Promise<IUserInfo> => { 
+
+    try {
+
+        const userInfo = await UserModel.findOne({email: userData.email})
+
+        if (!userInfo) {
+        throw new  Error('El email no existe');  
+        }
+
+        if (!bcrypt.compareSync(userData.password!, userInfo.password)) {
+            throw new  Error('Password incorrecto');  
+        }
+
+        // Narrowing: comprobamos que sea realmente un ObjectId
+        if (!(userInfo._id instanceof Types.ObjectId)) {
+            throw new Error('ID de usuario inválido');
+        }
+        
+        // Convertir a string
+        const idString = userInfo._id.toHexString(); // ó .toString()
+
+
+        const token = generateSign(idString, userInfo.email)
+
+        const {user, email } = userInfo
+
+
+
+        return {email: email, user: user, token: token}
+
+        
+    } catch (error) {
+      throw error  
+    }
+    
+    
+    
+
+    
+
+    
+
+}
+
