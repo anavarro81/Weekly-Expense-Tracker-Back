@@ -9,6 +9,7 @@ const categories_routes_1 = __importDefault(require("./src/routes/categories.rou
 const DashboardData_routes_1 = __importDefault(require("./src/routes/DashboardData.routes"));
 const expense_routes_1 = __importDefault(require("./src/routes/expense.routes"));
 const weeklyReport_routes_1 = __importDefault(require("./src/routes/weeklyReport.routes"));
+const auth_routes_1 = __importDefault(require("./src/routes/auth.routes"));
 // Carga las variables de entorno. Se pueden usar en todo el proyecto. 
 require("dotenv/config");
 const cors_1 = __importDefault(require("cors"));
@@ -30,6 +31,7 @@ app.use('/settings', setting_routes_1.default);
 app.use('/categories', categories_routes_1.default);
 app.use('/dashboard', DashboardData_routes_1.default);
 app.use('/expenses', expense_routes_1.default);
+app.use('/auth/', auth_routes_1.default);
 app.use('/', (req, res) => {
     console.log('Middleware 404: No se encontró la ruta', req.method, req.url);
     res.status(404).json({ message: 'La url solicitada no existe' });

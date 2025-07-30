@@ -30,7 +30,7 @@ export const getExpenses = async (options: PaginationOptions): Promise<IExpense[
             .select('date concept category amount') // Select only the fields you need
             .skip((page - 1) * limit) // Skip the documents for pagination
             .limit(limit)   // Limit the number of documents returned
-            .sort({ date: -1, _id: 1 })  // Sort by date in descending order 
+            .sort({ date: -1, _id: 1 })  // Sort by date and id. 
         
         console.log('expenses ', expenses)
         
