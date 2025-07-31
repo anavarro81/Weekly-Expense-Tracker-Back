@@ -6,6 +6,7 @@ import dashboardRoute from './src/routes/DashboardData.routes'
 import expenseRoute from './src/routes/expense.routes'
 import weeklyReportRoute from './src/routes/weeklyReport.routes'
 import authRoute from './src/routes/auth.routes'
+import {authMiddleware} from './src/middlewares/auth.middleware'
 // Carga las variables de entorno. Se pueden usar en todo el proyecto. 
 import 'dotenv/config'
 import cors from 'cors';
@@ -28,12 +29,14 @@ app.use((req, res, next) => {
     console.log('Middleware global: petición recibida en', req.method, req.url);
     next();
 });
+app.use('/auth/', authRoute)
+app.use(authMiddleware)
 app.use('/report', weeklyReportRoute)
-app.use('/settings', settingRoute)
+app.use('/settings',  settingRoute)
 app.use('/categories', categoryRoute)
 app.use('/dashboard', dashboardRoute)
-app.use('/expenses', expenseRoute)
-app.use('/auth/', authRoute)
+app.use('/expenses',  expenseRoute)
+
 
 
 app.use('/', (req, res) => {
