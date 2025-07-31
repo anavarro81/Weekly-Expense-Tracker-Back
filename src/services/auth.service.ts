@@ -41,12 +41,17 @@ export const login = async (userData: Partial<IUser>): Promise<IUserInfo> => {
 
         const userInfo = await UserModel.findOne({email: userData.email})
 
+        // Aunque el error sea de correo no encontrado no se indica el motivo para no dar pistas a
+        // posibles atacantes. 
         if (!userInfo) {
-        throw new  Error('El email no existe');  
+        throw new  Error('credenciales incorrectas');  
         }
 
+        // Aunque el error sea de password incorrecta no se indica el motivo para no dar pistas a
+        // posibles atacantes. 
+
         if (!bcrypt.compareSync(userData.password!, userInfo.password)) {
-            throw new  Error('Password incorrecto');  
+            throw new  Error('credenciales incorrectas');  
         }
 
         // Narrowing: comprobamos que sea realmente un ObjectId

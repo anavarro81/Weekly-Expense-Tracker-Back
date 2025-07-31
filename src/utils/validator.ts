@@ -32,7 +32,7 @@ const userSchema = Joi.object({
     .pattern(new RegExp('^[a-zA-Z0-9]{6,10}$'))
     .required()
     .messages({
-      'string.pattern.base': 'La contraseña debe tener entre 6 y 10 caracteres alfanuméricos',
+      'string.pattern.base': 'La contraseña no sigue el patron de seguridad',
       'string.empty': 'La contraseña no puede estar vacía',
       'any.required': 'La contraseña es obligatoria',
     }),
@@ -45,6 +45,7 @@ const loginSchema = Joi.object({
     .messages({
        'string.email': '"email" debe tener un formato válido', 
        'any.required': '"email" es obligatorio',
+       'string.empty': 'El "email" no puede estar vacio'
     }),
     password: Joi.string()    
     .required()

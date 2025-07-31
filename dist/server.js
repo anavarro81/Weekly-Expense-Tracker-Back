@@ -27,12 +27,13 @@ app.use((req, res, next) => {
     console.log('Middleware global: petición recibida en', req.method, req.url);
     next();
 });
+app.use('/auth/', auth_routes_1.default);
+app.use(auth_middleware_1.authMiddleware);
 app.use('/report', weeklyReport_routes_1.default);
 app.use('/settings', setting_routes_1.default);
 app.use('/categories', categories_routes_1.default);
 app.use('/dashboard', DashboardData_routes_1.default);
-app.use('/expenses', auth_middleware_1.authMiddleware, expense_routes_1.default);
-app.use('/auth/', auth_routes_1.default);
+app.use('/expenses', expense_routes_1.default);
 app.use('/', (req, res) => {
     console.log('Middleware 404: No se encontró la ruta', req.method, req.url);
     res.status(404).json({ message: 'La url solicitada no existe' });

@@ -37,11 +37,15 @@ exports.register = register;
 const login = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userInfo = yield user_model_1.default.findOne({ email: userData.email });
+        // Aunque el error sea de correo no encontrado no se indica el motivo para no dar pistas a
+        // posibles atacantes. 
         if (!userInfo) {
-            throw new Error('El email no existe');
+            throw new Error('credenciales incorrectas');
         }
+        // Aunque el error sea de password incorrecta no se indica el motivo para no dar pistas a
+        // posibles atacantes. 
         if (!bcrypt_1.default.compareSync(userData.password, userInfo.password)) {
-            throw new Error('Password incorrecto');
+            throw new Error('credenciales incorrectas');
         }
         // Narrowing: comprobamos que sea realmente un ObjectId
         if (!(userInfo._id instanceof mongoose_1.Types.ObjectId)) {
