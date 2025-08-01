@@ -29,8 +29,13 @@ app.use((req, res, next) => {
     console.log('Middleware global: petición recibida en', req.method, req.url);
     next();
 });
+
+
+// Rutas públicas (sin autenticación)
 app.use('/auth/', authRoute)
-app.use(authMiddleware)
+
+// Rutas protegidas (requieren autenticación)
+app.use(authMiddleware);
 app.use('/report', weeklyReportRoute)
 app.use('/settings',  settingRoute)
 app.use('/categories', categoryRoute)
