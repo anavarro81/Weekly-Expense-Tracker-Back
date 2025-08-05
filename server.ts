@@ -1,7 +1,6 @@
 import express from 'express';
 
 import settingRoute from './src/routes/setting.routes'
-import categoryRoute from './src/routes/categories.routes'
 import dashboardRoute from './src/routes/DashboardData.routes'
 import expenseRoute from './src/routes/expense.routes'
 import weeklyReportRoute from './src/routes/weeklyReport.routes'
@@ -30,15 +29,11 @@ app.use((req, res, next) => {
     next();
 });
 
-
-// Rutas públicas (sin autenticación)
 app.use('/auth/', authRoute)
 
-// Rutas protegidas (requieren autenticación)
-app.use(authMiddleware);
 app.use('/report', weeklyReportRoute)
 app.use('/settings',  settingRoute)
-app.use('/categories', categoryRoute)
+
 app.use('/dashboard', dashboardRoute)
 app.use('/expenses',  expenseRoute)
 

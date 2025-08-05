@@ -4,6 +4,7 @@ const mongoose_1 = require("mongoose");
 const SettingSchema = new mongoose_1.Schema({
     _id: { type: String, default: "settingsID" },
     limit: { type: Number, required: true },
+    userId: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true }
 }, {
     timestamps: true,
 });

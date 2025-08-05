@@ -46,6 +46,17 @@ exports.login = exports.register = void 0;
 // Controlador de autenticación: gestiona el registro y login de usuarios
 const authService = __importStar(require("../services/auth.service"));
 const validator_1 = require("../utils/validator");
+// categorias por defecto. 
+const defaultCategories = [
+    { "name": "Alimentación" },
+    { "name": "Transporte" },
+    { "name": "Ocio" },
+    { "name": "Comida" },
+    { "name": "Restaurante" },
+    { "name": "Compras" },
+    { "name": "Mascotas" },
+    { "name": "Otros" }
+];
 /**
  * Controlador para el registro de usuario.
  * - Valida los datos recibidos en el body.
@@ -62,6 +73,8 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             // Si la validación falla, responde con error y detalles
             res.status(400).json({ message: "Datos del usuario incorrectos", error: validUser.errors });
         }
+        userData.categories = defaultCategories;
+        console.log('userData ', userData);
         // Si la validación es correcta, crea el usuario
         const createdUser = yield authService.register(userData);
         res.status(201).json({ createdUser });

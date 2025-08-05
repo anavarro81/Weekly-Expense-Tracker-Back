@@ -25,7 +25,7 @@ export interface IUserInfo {
  */
 export const register = async (userData: Partial<IUser>): Promise<ValidationResult | IUser> => {
     try {
-        const {user, email, password} = userData
+        const {user, email, password, categories} = userData
 
         // Verifica si el email ya existe en la base de datos
         if (await UserModel.exists( {email} )) {
@@ -35,7 +35,7 @@ export const register = async (userData: Partial<IUser>): Promise<ValidationResu
         // Hashea la contraseña antes de guardar
         const hashedPassword = await hashpassword(password!) 
         // Crea el usuario en la base de datos
-        const newUser = await UserModel.create({user, email, password: hashedPassword})
+        const newUser = await UserModel.create({user, email, categories, password: hashedPassword})
         return newUser    
     } catch (error) {
         throw error            

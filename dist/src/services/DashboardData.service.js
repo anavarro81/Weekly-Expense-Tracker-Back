@@ -11,15 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDashboardDataService = void 0;
 const setting_service_1 = require("../services/setting.service");
-const category_service_1 = require("../services/category.service");
 const getSetting = () => __awaiter(void 0, void 0, void 0, function* () {
     const setting = yield (0, setting_service_1.getLimit)();
     return setting;
 });
 const getCategories = () => __awaiter(void 0, void 0, void 0, function* () {
-    const categories = yield (0, category_service_1.getAllCategoriesService)();
-    console.log(categories);
-    return categories;
+    // TODO - Acceder a traves de los datos del usuario. 
+    // // const categories = await getAllCategoriesService()
+    // console.log(categories)
+    // return categories
 });
 const getDashboardDataService = () => __awaiter(void 0, void 0, void 0, function* () {
     const setting = yield getSetting();

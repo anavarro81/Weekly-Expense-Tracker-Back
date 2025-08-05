@@ -4,6 +4,18 @@ import * as authService from '../services/auth.service'
 import { Request, Response, NextFunction } from 'express';
 import {validateUserRegister, validateUserLogin, ValidationResult} from '../utils/validator' 
 
+// categorias por defecto. 
+const defaultCategories =  [
+    { "name": "Alimentación" },
+    { "name": "Transporte" },
+    { "name": "Ocio" },
+    { "name": "Comida" },
+    { "name": "Restaurante" },
+    { "name": "Compras" },
+    { "name": "Mascotas" },
+    { "name": "Otros" }
+  ]
+
 /**
  * Controlador para el registro de usuario.
  * - Valida los datos recibidos en el body.
@@ -21,6 +33,13 @@ export const register = async (req: Request, res: Response, next: NextFunction):
             // Si la validación falla, responde con error y detalles
             res.status(400).json({message: "Datos del usuario incorrectos", error: validUser.errors})
         }
+
+        
+
+        userData.categories = defaultCategories
+
+        console.log('userData ', userData)
+
         // Si la validación es correcta, crea el usuario
         const createdUser = await authService.register(userData)
         res.status(201).json({createdUser})

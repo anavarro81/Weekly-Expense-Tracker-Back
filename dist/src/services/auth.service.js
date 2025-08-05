@@ -27,7 +27,7 @@ const mongoose_1 = require("mongoose");
  */
 const register = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { user, email, password } = userData;
+        const { user, email, password, categories } = userData;
         // Verifica si el email ya existe en la base de datos
         if (yield user_model_1.default.exists({ email })) {
             const conflict = new Error('El email ya está en uso');
@@ -36,7 +36,7 @@ const register = (userData) => __awaiter(void 0, void 0, void 0, function* () {
         // Hashea la contraseña antes de guardar
         const hashedPassword = yield (0, auth_1.hashpassword)(password);
         // Crea el usuario en la base de datos
-        const newUser = yield user_model_1.default.create({ user, email, password: hashedPassword });
+        const newUser = yield user_model_1.default.create({ user, email, categories, password: hashedPassword });
         return newUser;
     }
     catch (error) {

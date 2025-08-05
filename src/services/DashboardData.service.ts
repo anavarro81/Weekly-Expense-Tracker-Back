@@ -1,5 +1,5 @@
 import {getLimit} from '../services/setting.service'
-import {getAllCategoriesService} from '../services/category.service'
+
 
 const getSetting = async() => {
 
@@ -9,9 +9,10 @@ const getSetting = async() => {
 }
 
 const getCategories = async() => {
-    const categories = await getAllCategoriesService()
-    console.log(categories)
-    return categories
+    // TODO - Acceder a traves de los datos del usuario. 
+    // // const categories = await getAllCategoriesService()
+    // console.log(categories)
+    // return categories
 }
 
 
