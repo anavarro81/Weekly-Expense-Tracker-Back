@@ -28,7 +28,7 @@ exports.loadExpenses = loadExpenses;
 const getExpenses = (options, id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { page, limit } = options;
-        const expenses = yield expense_model_1.default.find({})
+        const expenses = yield expense_model_1.default.find({ userId: id })
             .select('date concept category amount') // Select only the fields you need
             .skip((page - 1) * limit) // Skip the documents for pagination
             .limit(limit) // Limit the number of documents returned

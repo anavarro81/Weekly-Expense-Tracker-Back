@@ -26,7 +26,7 @@ export const getExpenses = async (options: PaginationOptions, id: string): Promi
 
         const {page, limit} = options
 
-        const expenses = await ExpenseModel.find({})
+        const expenses = await ExpenseModel.find({userId: id})
             .select('date concept category amount') // Select only the fields you need
             .skip((page - 1) * limit) // Skip the documents for pagination
             .limit(limit)   // Limit the number of documents returned
