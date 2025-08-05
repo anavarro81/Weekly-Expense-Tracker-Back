@@ -21,7 +21,7 @@ export const loadExpenses = async (expenses: Partial<IExpense>[]): Promise<IExpe
 
 }
 
-export const getExpenses = async (options: PaginationOptions): Promise<IExpense[]> => {
+export const getExpenses = async (options: PaginationOptions, id: string): Promise<IExpense[]> => {
     try {
 
         const {page, limit} = options

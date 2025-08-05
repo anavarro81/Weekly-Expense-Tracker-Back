@@ -13,7 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.hashpassword = void 0;
+// Utilidades de autenticación
+// Este archivo contiene funciones para el manejo seguro de contraseñas usando bcrypt
 const bcrypt_1 = __importDefault(require("bcrypt"));
+/**
+ * Hashea una contraseña usando bcrypt.
+ * - Genera un salt aleatorio con 10 rondas.
+ * - Devuelve la contraseña cifrada lista para almacenar en base de datos.
+ * @param password Contraseña en texto plano
+ * @returns Contraseña cifrada
+ */
 const hashpassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = yield bcrypt_1.default.genSalt(10);
     return yield bcrypt_1.default.hash(password, salt);

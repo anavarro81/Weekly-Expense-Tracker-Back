@@ -43,15 +43,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = exports.register = void 0;
+// Controlador de autenticación: gestiona el registro y login de usuarios
 const authService = __importStar(require("../services/auth.service"));
 const validator_1 = require("../utils/validator");
+/**
+ * Controlador para el registro de usuario.
+ * - Valida los datos recibidos en el body.
+ * - Si la validación falla, responde con error 400 y detalles.
+ * - Si es correcto, llama al servicio para crear el usuario y responde con el usuario creado.
+ */
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // Extrae los datos del body
         const userData = req.body;
+        // Valida los datos de registro
         const validUser = (0, validator_1.validateUserRegister)(userData);
         if (!validUser.valid) {
+            // Si la validación falla, responde con error y detalles
             res.status(400).json({ message: "Datos del usuario incorrectos", error: validUser.errors });
         }
+        // Si la validación es correcta, crea el usuario
         const createdUser = yield authService.register(userData);
         res.status(201).json({ createdUser });
     }
@@ -60,13 +71,28 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.register = register;
+/**
+ * Controlador para el login de usuario.
+ * - Valida los datos recibidos en el body.
+ * - Si la validación falla, responde con error 400 y detalles.
+ * - Si es correcto, llama al servicio para autenticar y responde con el usuario y token.
+ */
 const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = req.body;
-    const validUser = (0, validator_1.validateUserLogin)(userData);
-    if (!validUser.valid) {
-        res.status(400).json({ message: "Datos del usuario incorrectos", error: validUser.errors });
+    try {
+        // Extrae los datos del body
+        const userData = req.body;
+        // Valida los datos de login
+        const validUser = (0, validator_1.validateUserLogin)(userData);
+        if (!validUser.valid) {
+            // Si la validación falla, responde con error y detalles
+            res.status(400).json({ message: "Datos del usuario incorrectos", error: validUser.errors });
+        }
+        // Si la validación es correcta, autentica y genera token
+        const userInfo = yield authService.login(userData);
+        res.status(200).json({ userInfo });
     }
-    const userInfo = yield authService.login(userData);
-    res.status(200).json({ userInfo });
+    catch (error) {
+        next(error);
+    }
 });
 exports.login = login;

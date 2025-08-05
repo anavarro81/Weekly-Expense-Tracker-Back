@@ -12,6 +12,7 @@ export interface IUserInfo {
     email: string;
     user: string;
     token: string;
+    userId: string
 }
 
 
@@ -78,7 +79,7 @@ export const login = async (userData: Partial<IUser>): Promise<IUserInfo> => {
         const {user, email } = userInfo
 
         // Devuelve el objeto con email, user y token
-        return {email: email, user: user, token: token}
+        return {email: email, user: user, userId: userInfo._id.toString(), token: token}
     } catch (error) {
         throw error  
     }

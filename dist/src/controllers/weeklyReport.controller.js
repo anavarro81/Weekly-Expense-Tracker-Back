@@ -46,16 +46,24 @@ exports.getWeeklyReport = void 0;
 const settingService = __importStar(require("../services/setting.service"));
 const categoriesService = __importStar(require("../services/category.service"));
 const expensesService = __importStar(require("../services/expense.service"));
+const jwt_1 = require("../utils/jwt");
 const getWeeklyReport = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     try {
         const options = {
             page: 1,
             limit: 5
         };
+        const token = (_b = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.split(' ')[1];
+        if (!token) {
+            res.status(400).json({ "error": "Usuario no autorizado" });
+            return;
+        }
+        const userId = (0, jwt_1.verifySign)(token);
         const [weeklyLimit, categories, expenses, numExpenses] = yield Promise.all([
             settingService.getLimit(),
             categoriesService.getAllCategoriesService(),
-            expensesService.getExpenses(options),
+            expensesService.getExpenses(options, userId),
             expensesService.countExpenses()
         ]);
         res.status(200).json({ weeklyLimit, categories, expenses, numExpenses });

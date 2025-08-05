@@ -44,6 +44,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteExpense = exports.editExpense = exports.newExpense = exports.getExpenses = exports.loadExpenses = void 0;
 const expenseService = __importStar(require("../services/expense.service"));
+const jwt_1 = require("../utils/jwt");
 const loadExpenses = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('loadExpenses controller', req.body);
     try {
@@ -56,13 +57,22 @@ const loadExpenses = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.loadExpenses = loadExpenses;
 const getExpenses = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    console.log('getExpenses >> ');
     try {
         const { page = 1, limit = 5 } = req.query;
+        const token = (_b = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.split(' ')[1];
+        if (!token) {
+            res.status(400).json({ "error": "Usuario no autorizado" });
+            return;
+        }
+        const userId = (0, jwt_1.verifySign)(token);
+        // const {userId} = token.
         const options = {
             page: parseInt(page, 10),
             limit: parseInt(limit, 10)
         };
-        const expenses = yield expenseService.getExpenses(options);
+        const expenses = yield expenseService.getExpenses(options, userId);
         res.status(200).json(expenses);
     }
     catch (error) {

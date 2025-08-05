@@ -1,5 +1,6 @@
 import * as expenseService from '../services/expense.service'
 import { Request, Response, NextFunction } from 'express';
+import {verifySign} from '../utils/jwt'
 
 export const loadExpenses = async (req: Request, res: Response, next: NextFunction): Promise<void> => {    
     
@@ -19,16 +20,28 @@ export const loadExpenses = async (req: Request, res: Response, next: NextFuncti
 
 export const getExpenses = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     
-   
+   console.log ('getExpenses >> ')
 
     try {
         const { page = 1, limit = 5 } = req.query
+        
+        const token = req.headers?.authorization?.split(' ')[1];
+
+        if (!token) {
+            res.status(400).json({"error": "Usuario no autorizado"} )
+            return
+        }        
+
+        const userId = verifySign(token)
+        
+        // const {userId} = token.
+        
         const options = {
             page: parseInt(page as string, 10),
             limit: parseInt(limit as string, 10)
         }
         
-        const expenses = await expenseService.getExpenses(options)
+        const expenses = await expenseService.getExpenses(options, userId)
         res.status(200).json(expenses)
         
     } catch (error: any) {

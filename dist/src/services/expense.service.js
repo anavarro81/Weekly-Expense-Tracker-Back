@@ -25,7 +25,7 @@ const loadExpenses = (expenses) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.loadExpenses = loadExpenses;
-const getExpenses = (options) => __awaiter(void 0, void 0, void 0, function* () {
+const getExpenses = (options, id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { page, limit } = options;
         const expenses = yield expense_model_1.default.find({})
