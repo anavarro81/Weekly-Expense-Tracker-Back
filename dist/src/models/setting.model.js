@@ -10,3 +10,4 @@ const SettingSchema = new mongoose_1.Schema({
 });
 const SettingModel = (0, mongoose_1.model)("Setting", SettingSchema);
 exports.default = SettingModel;
+//# sourceMappingURL=setting.model.js.map

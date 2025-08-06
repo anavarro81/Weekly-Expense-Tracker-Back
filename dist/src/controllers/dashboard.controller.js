@@ -11,9 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDashboardData = void 0;
 const DashboardData_service_1 = require("../services/DashboardData.service");
+const auth_1 = require("../utils/auth");
 const getDashboardData = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield (0, DashboardData_service_1.getDashboardDataService)();
+        const userId = yield (0, auth_1.getUserID)(req);
+        const data = yield (0, DashboardData_service_1.getDashboardDataService)(userId);
         res.status(200).json(data);
     }
     catch (error) {
@@ -21,3 +23,4 @@ const getDashboardData = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.getDashboardData = getDashboardData;
+//# sourceMappingURL=dashboard.controller.js.map

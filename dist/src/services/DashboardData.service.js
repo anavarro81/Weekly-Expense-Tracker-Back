@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDashboardDataService = void 0;
 // TODO - Acceder a traves de los datos del usuario. 
-const getSetting = () => __awaiter(void 0, void 0, void 0, function* () {
+const getSetting = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     // const setting = await getLimit()
     // return setting
 });
@@ -21,8 +21,8 @@ const getCategories = () => __awaiter(void 0, void 0, void 0, function* () {
     // console.log(categories)
     // return categories
 });
-const getDashboardDataService = () => __awaiter(void 0, void 0, void 0, function* () {
-    const setting = yield getSetting();
+const getDashboardDataService = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const setting = yield getSetting(userId);
     console.log('setting ', setting);
     const categories = yield getCategories();
     // return {limit: limit, categories: categories}
@@ -33,3 +33,4 @@ const getDashboardDataService = () => __awaiter(void 0, void 0, void 0, function
     };
 });
 exports.getDashboardDataService = getDashboardDataService;
+//# sourceMappingURL=DashboardData.service.js.map

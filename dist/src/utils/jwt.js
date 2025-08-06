@@ -39,3 +39,4 @@ const verifySign = (token) => {
     return payload.id;
 };
 exports.verifySign = verifySign;
+//# sourceMappingURL=jwt.js.map

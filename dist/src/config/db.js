@@ -36,3 +36,4 @@ const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.connectDB = connectDB;
+//# sourceMappingURL=db.js.map

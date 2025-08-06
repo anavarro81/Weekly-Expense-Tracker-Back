@@ -115,3 +115,4 @@ const deleteExpense = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.deleteExpense = deleteExpense;
+//# sourceMappingURL=expense.controller.js.map

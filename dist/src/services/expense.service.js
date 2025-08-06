@@ -96,3 +96,4 @@ const deleteExpense = (id) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.deleteExpense = deleteExpense;
+//# sourceMappingURL=expense.service.js.map

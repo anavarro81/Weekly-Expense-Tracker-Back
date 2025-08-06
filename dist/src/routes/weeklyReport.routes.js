@@ -8,3 +8,4 @@ const weeklyReport_controller_1 = require("../controllers/weeklyReport.controlle
 const weeklyReportRoute = express_1.default.Router();
 weeklyReportRoute.get('/', weeklyReport_controller_1.getWeeklyReport);
 exports.default = weeklyReportRoute;
+//# sourceMappingURL=weeklyReport.routes.js.map

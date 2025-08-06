@@ -6,6 +6,7 @@ import expenseRoute from './src/routes/expense.routes'
 import weeklyReportRoute from './src/routes/weeklyReport.routes'
 import authRoute from './src/routes/auth.routes'
 import {authMiddleware} from './src/middlewares/auth.middleware'
+import userRoute from './src/routes/user.routes'
 // Carga las variables de entorno. Se pueden usar en todo el proyecto. 
 import 'dotenv/config'
 import cors from 'cors';
@@ -36,7 +37,7 @@ app.use('/report', weeklyReportRoute)
 
 app.use('/dashboard', dashboardRoute)
 app.use('/expenses',  expenseRoute)
-
+app.use('/user', userRoute)
 
 
 app.use('/', (req, res) => {

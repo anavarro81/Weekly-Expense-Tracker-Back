@@ -4,3 +4,4 @@ exports.corsConfig = void 0;
 exports.corsConfig = {
     origin: "*"
 };
+//# sourceMappingURL=cors.js.map

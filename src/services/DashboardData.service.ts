@@ -1,7 +1,9 @@
 
 
 // TODO - Acceder a traves de los datos del usuario. 
-const getSetting = async() => {
+const getSetting = async(userId: string) => {
+
+
 
     // const setting = await getLimit()
     // return setting
@@ -16,9 +18,9 @@ const getCategories = async() => {
 }
 
 
-export const getDashboardDataService = async () => {
+export const getDashboardDataService = async (userId: string) => {
 
-    const  setting = await getSetting()
+    const  setting = await getSetting(userId)
    
     console.log('setting ', setting)
 

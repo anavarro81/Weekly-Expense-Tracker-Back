@@ -26,3 +26,4 @@ const errorHandler = (error, req, res, next) => {
     res.status(status).json({ error: message });
 };
 exports.errorHandler = errorHandler;
+//# sourceMappingURL=error.middleware.js.map
