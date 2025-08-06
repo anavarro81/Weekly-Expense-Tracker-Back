@@ -5,6 +5,17 @@ const UserSchema = new mongoose_1.Schema({
     user: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    weeklylimit: {
+        type: Number,
+        required: true,
+        default: 50,
+        validate: {
+            validator: function (value) {
+                return value > 0;
+            },
+            message: 'El límite semanal debe ser mayor que cero.'
+        }
+    },
     categories: [
         {
             name: { type: String }

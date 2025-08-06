@@ -1,10 +1,10 @@
-import {getLimit} from '../services/setting.service'
 
 
+// TODO - Acceder a traves de los datos del usuario. 
 const getSetting = async() => {
 
-    const setting = await getLimit()
-    return setting
+    // const setting = await getLimit()
+    // return setting
 
 }
 
@@ -27,9 +27,9 @@ export const getDashboardDataService = async () => {
     // return {limit: limit, categories: categories}
     
     return {
-    
-        limit: setting.limit,
-        categories: categories
+        // TODO - Devolver el limite del usuario y de sus categorasi
+        // limit: setting.limit,
+        // categories: categories
     }
     
 

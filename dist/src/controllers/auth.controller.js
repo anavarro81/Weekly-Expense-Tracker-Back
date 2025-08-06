@@ -46,16 +46,13 @@ exports.login = exports.register = void 0;
 // Controlador de autenticación: gestiona el registro y login de usuarios
 const authService = __importStar(require("../services/auth.service"));
 const validator_1 = require("../utils/validator");
-// categorias por defecto. 
 const defaultCategories = [
-    { "name": "Alimentación" },
-    { "name": "Transporte" },
-    { "name": "Ocio" },
-    { "name": "Comida" },
-    { "name": "Restaurante" },
-    { "name": "Compras" },
-    { "name": "Mascotas" },
-    { "name": "Otros" }
+    { name: 'Compras' },
+    { name: 'Restaurante' },
+    { name: 'Momita' },
+    { name: 'Mascotas' },
+    { name: 'Comida' },
+    { name: 'Transporte' }
 ];
 /**
  * Controlador para el registro de usuario.
@@ -74,7 +71,6 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             res.status(400).json({ message: "Datos del usuario incorrectos", error: validUser.errors });
         }
         userData.categories = defaultCategories;
-        console.log('userData ', userData);
         // Si la validación es correcta, crea el usuario
         const createdUser = yield authService.register(userData);
         res.status(201).json({ createdUser });
@@ -86,8 +82,12 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 exports.register = register;
 /**
  * Controlador para el login de usuario.
- * - Valida los datos recibidos en el body.
- * - Si la validación falla, responde con error 400 y detalles.
+ * - Valida los d
+
+        atos recibidos en el body.
+ * - Si la validación f
+
+        console.log('userData ', userData)alla, responde con error 400 y detalles.
  * - Si es correcto, llama al servicio para autenticar y responde con el usuario y token.
  */
 const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {

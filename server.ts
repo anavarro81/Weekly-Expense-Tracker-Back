@@ -1,6 +1,6 @@
 import express from 'express';
 
-import settingRoute from './src/routes/setting.routes'
+// import settingRoute from './src/routes/setting.routes'
 import dashboardRoute from './src/routes/DashboardData.routes'
 import expenseRoute from './src/routes/expense.routes'
 import weeklyReportRoute from './src/routes/weeklyReport.routes'
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 app.use('/auth/', authRoute)
 
 app.use('/report', weeklyReportRoute)
-app.use('/settings',  settingRoute)
+// app.use('/settings',  settingRoute)
 
 app.use('/dashboard', dashboardRoute)
 app.use('/expenses',  expenseRoute)

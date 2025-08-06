@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDashboardDataService = void 0;
-const setting_service_1 = require("../services/setting.service");
+// TODO - Acceder a traves de los datos del usuario. 
 const getSetting = () => __awaiter(void 0, void 0, void 0, function* () {
-    const setting = yield (0, setting_service_1.getLimit)();
-    return setting;
+    // const setting = await getLimit()
+    // return setting
 });
 const getCategories = () => __awaiter(void 0, void 0, void 0, function* () {
     // TODO - Acceder a traves de los datos del usuario. 
@@ -27,8 +27,9 @@ const getDashboardDataService = () => __awaiter(void 0, void 0, void 0, function
     const categories = yield getCategories();
     // return {limit: limit, categories: categories}
     return {
-        limit: setting.limit,
-        categories: categories
+    // TODO - Devolver el limite del usuario y de sus categorasi
+    // limit: setting.limit,
+    // categories: categories
     };
 });
 exports.getDashboardDataService = getDashboardDataService;

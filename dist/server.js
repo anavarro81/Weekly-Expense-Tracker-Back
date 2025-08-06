@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const setting_routes_1 = __importDefault(require("./src/routes/setting.routes"));
+// import settingRoute from './src/routes/setting.routes'
 const DashboardData_routes_1 = __importDefault(require("./src/routes/DashboardData.routes"));
 const expense_routes_1 = __importDefault(require("./src/routes/expense.routes"));
 const weeklyReport_routes_1 = __importDefault(require("./src/routes/weeklyReport.routes"));
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 });
 app.use('/auth/', auth_routes_1.default);
 app.use('/report', weeklyReport_routes_1.default);
-app.use('/settings', setting_routes_1.default);
+// app.use('/settings',  settingRoute)
 app.use('/dashboard', DashboardData_routes_1.default);
 app.use('/expenses', expense_routes_1.default);
 app.use('/', (req, res) => {

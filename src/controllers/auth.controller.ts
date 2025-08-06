@@ -4,17 +4,14 @@ import * as authService from '../services/auth.service'
 import { Request, Response, NextFunction } from 'express';
 import {validateUserRegister, validateUserLogin, ValidationResult} from '../utils/validator' 
 
-// categorias por defecto. 
-const defaultCategories =  [
-    { "name": "Alimentación" },
-    { "name": "Transporte" },
-    { "name": "Ocio" },
-    { "name": "Comida" },
-    { "name": "Restaurante" },
-    { "name": "Compras" },
-    { "name": "Mascotas" },
-    { "name": "Otros" }
-  ]
+const defaultCategories = [
+  { name: 'Compras' },
+  { name: 'Restaurante' },
+  { name: 'Momita' },
+  { name: 'Mascotas' },
+  { name: 'Comida' },
+  { name: 'Transporte' }
+];
 
 /**
  * Controlador para el registro de usuario.
@@ -34,11 +31,7 @@ export const register = async (req: Request, res: Response, next: NextFunction):
             res.status(400).json({message: "Datos del usuario incorrectos", error: validUser.errors})
         }
 
-        
-
         userData.categories = defaultCategories
-
-        console.log('userData ', userData)
 
         // Si la validación es correcta, crea el usuario
         const createdUser = await authService.register(userData)
@@ -50,8 +43,12 @@ export const register = async (req: Request, res: Response, next: NextFunction):
 
 /**
  * Controlador para el login de usuario.
- * - Valida los datos recibidos en el body.
- * - Si la validación falla, responde con error 400 y detalles.
+ * - Valida los d
+
+        atos recibidos en el body.
+ * - Si la validación f
+
+        console.log('userData ', userData)alla, responde con error 400 y detalles.
  * - Si es correcto, llama al servicio para autenticar y responde con el usuario y token.
  */
 export const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
