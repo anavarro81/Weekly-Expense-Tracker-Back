@@ -76,11 +76,11 @@ export const editExpense = async (id: string, expenseData: Partial<IExpense>): P
     }
 }
 
-export const countExpenses = async (): Promise<Number> => {  
+export const countExpenses = async (userId: string): Promise<Number> => {  
 
     try {
         
-        const numExpenses = await ExpenseModel.countDocuments({});
+        const numExpenses = await ExpenseModel.countDocuments({userId});
         console.log('numExpenses : ', numExpenses);
         
         return numExpenses 

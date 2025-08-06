@@ -72,9 +72,9 @@ const editExpense = (id, expenseData) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.editExpense = editExpense;
-const countExpenses = () => __awaiter(void 0, void 0, void 0, function* () {
+const countExpenses = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const numExpenses = yield expense_model_1.default.countDocuments({});
+        const numExpenses = yield expense_model_1.default.countDocuments({ userId });
         console.log('numExpenses : ', numExpenses);
         return numExpenses;
     }

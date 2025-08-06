@@ -44,6 +44,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWeeklyReport = void 0;
 const expensesService = __importStar(require("../services/expense.service"));
+const userServices = __importStar(require("../services/user.service"));
 const jwt_1 = require("../utils/jwt");
 const getWeeklyReport = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
@@ -59,13 +60,14 @@ const getWeeklyReport = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         }
         const userId = (0, jwt_1.verifySign)(token);
         //const [weeklyLimit, expenses, numExpenses] = await Promise.all([
-        const [expenses, numExpenses] = yield Promise.all([
+        const [userData, expenses, numExpenses] = yield Promise.all([
             // TODO Actualizar el limite con el limite del usuario
-            // settingService.getLimit(),            
+            // settingService.getLimit(),
+            userServices.getUserData(userId),
             expensesService.getExpenses(options, userId),
-            expensesService.countExpenses()
+            expensesService.countExpenses(userId)
         ]);
-        res.status(200).json({ expenses, numExpenses });
+        res.status(200).json({ userData, expenses, numExpenses });
         // res.status(200).json({weeklyLimit, expenses, numExpenses})
     }
     catch (error) {

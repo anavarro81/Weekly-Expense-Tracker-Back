@@ -12,11 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserData = void 0;
+exports.updateSetting = exports.getUserData = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const getUserData = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log('getUserData userId ', id);
         const user = yield user_model_1.default.findById(id);
         console.log('user ', user);
         return user;
@@ -26,4 +25,25 @@ const getUserData = (id) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getUserData = getUserData;
+// Los parametros limite y categorias son opcionales. Puede actulizarse a la vez uno o los dos.  
+const updateSetting = (id, limit, categories) => __awaiter(void 0, void 0, void 0, function* () {
+    const updateFields = {};
+    if (limit !== undefined)
+        updateFields.weeklylimit = limit;
+    if (categories !== undefined)
+        updateFields.categories = categories;
+    if (Object.keys(updateFields).length == 0) {
+        throw new Error('No se ha mandado ningun dato para actualizar');
+    }
+    try {
+        const updatedUser = yield user_model_1.default.findByIdAndUpdate(id, { $set: updateFields }, 
+        // Si actualiza el documento devuelve una copia con los nuevos datos. 
+        { new: true });
+        return updatedUser;
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.updateSetting = updateSetting;
 //# sourceMappingURL=user.service.js.map

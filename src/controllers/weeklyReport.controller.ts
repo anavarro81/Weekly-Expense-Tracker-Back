@@ -1,6 +1,8 @@
 
 
 import * as expensesService from '../services/expense.service'
+import * as userServices from '../services/user.service'
+
 import { Request, Response, NextFunction } from 'express';
 import {verifySign} from '../utils/jwt'
 export const getWeeklyReport = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -25,15 +27,16 @@ export const getWeeklyReport = async (req: Request, res: Response, next: NextFun
             
 
             //const [weeklyLimit, expenses, numExpenses] = await Promise.all([
-            const [expenses, numExpenses] = await Promise.all([
+            const [userData, expenses, numExpenses] = await Promise.all([
             // TODO Actualizar el limite con el limite del usuario
-                // settingService.getLimit(),            
+                // settingService.getLimit(),
+            userServices.getUserData(userId),                
             expensesService.getExpenses(options, userId),
-            expensesService.countExpenses()
+            expensesService.countExpenses(userId)
     ]);
 
 
-            res.status(200).json({expenses, numExpenses})
+            res.status(200).json({userData, expenses, numExpenses})
             // res.status(200).json({weeklyLimit, expenses, numExpenses})
     
     } catch (error: any) {

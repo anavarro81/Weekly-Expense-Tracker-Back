@@ -42,7 +42,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserData = void 0;
+exports.updateSetting = exports.getUserData = void 0;
 const userService = __importStar(require("../services/user.service"));
 const auth_1 = require("../utils/auth");
 const getUserData = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -56,4 +56,16 @@ const getUserData = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getUserData = getUserData;
+const updateSetting = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = yield (0, auth_1.getUserID)(req);
+    try {
+        const { limit, categories } = req.body;
+        const updatedUser = yield userService.updateSetting(userId, limit, categories);
+        res.status(200).json(updatedUser);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.updateSetting = updateSetting;
 //# sourceMappingURL=user.controller.js.map
