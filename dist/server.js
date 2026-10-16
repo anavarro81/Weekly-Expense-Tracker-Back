@@ -20,7 +20,7 @@ const bd_1 = require("./config/bd");
 const app = (0, express_1.default)();
 (0, bd_1.connectDB)();
 app.use((0, cors_1.default)(cors_2.corsConfig));
-app.options('*', (0, cors_1.default)(cors_2.corsConfig));
+app.options(/(.*)/, (0, cors_1.default)(cors_2.corsConfig));
 app.use((req, res, next) => {
     if (req.method === 'OPTIONS') {
         res.sendStatus(200);
