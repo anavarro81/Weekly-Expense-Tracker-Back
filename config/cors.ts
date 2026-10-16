@@ -1,21 +1,20 @@
+const allowedOrigins = new Set([
+  "https://weekly-expense-tracker.vercel.app",
+  "http://localhost:5173",
+  "http://localhost:3000",
+]);
+
 export const corsConfig = {
-  origin: function (origin: any, callback: any) {
-    const allowedOrigins = [
-      "https://weekly-expense-tracker.vercel.app",
-      "http://localhost:5173",
-      "http://localhost:3000",
-    ];
-    
-    if (!origin || allowedOrigins.includes(origin)) {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    if (!origin || allowedOrigins.has(origin)) {
       callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
+      return;
     }
+
+    callback(null, false);
   },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  exposedHeaders: ["Content-Type"],
-  preflightContinue: false,
   optionsSuccessStatus: 200,
 };
