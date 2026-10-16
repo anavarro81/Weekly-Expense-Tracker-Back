@@ -5,6 +5,8 @@ export const corsConfig = {
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  // Permite las solicitudes CORS desde los orígenes especificados
   allowedHeaders: ["Content-Type", "Authorization"],
+  exposedHeaders: ["Content-Type"],
+  preflightContinue: false,
+  optionsSuccessStatus: 200,
 };

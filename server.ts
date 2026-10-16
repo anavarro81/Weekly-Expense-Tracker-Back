@@ -22,6 +22,9 @@ connectDB();
 
 app.use(cors(corsConfig))
 
+// Manejo explícito de peticiones OPTIONS (preflight)
+app.options('*', cors(corsConfig));
+
 // Permite leer los datos que vienen de un formulario
 app.use(express.json())
 
@@ -49,4 +52,4 @@ app.use('/', (req, res) => {
 app.use(errorHandler)
 
 
-export default app; 
+export default app;
