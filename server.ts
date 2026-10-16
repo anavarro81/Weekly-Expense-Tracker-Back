@@ -20,17 +20,19 @@ const app = express()
 
 connectDB();
 
+// app.use(cors(corsConfig))
+
+// app.options(/(.*)/, cors(corsConfig));
+
+// app.use((req, res, next) => {
+//     if (req.method === 'OPTIONS') {
+//         res.sendStatus(200);
+//         return;
+//     }
+//     next();
+// });
+
 app.use(cors(corsConfig))
-
-app.options(/(.*)/, cors(corsConfig));
-
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-        res.sendStatus(200);
-        return;
-    }
-    next();
-});
 
 // Permite leer los datos que vienen de un formulario
 app.use(express.json())
