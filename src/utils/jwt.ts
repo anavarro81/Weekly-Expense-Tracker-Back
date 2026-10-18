@@ -1,11 +1,10 @@
-
 // Utilidades para manejo de JSON Web Tokens (JWT)
 // Este archivo permite generar y verificar tokens para autenticación y autorización
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 // Crea una interfaz personalizado a partir JwtPayload y le agrego el id de usuario
-export interface myJwtPayload extends jwt.JwtPayload{
-    id: string;
+export interface myJwtPayload extends jwt.JwtPayload {
+  id: string;
 }
 
 /**
@@ -17,12 +16,11 @@ export interface myJwtPayload extends jwt.JwtPayload{
  * @returns Token JWT
  */
 export const generateSign = (id: string, email: string) => {
-    if (!process.env.JWT_KEY) {
-        throw new Error ('Clave para JWT no informada')
-    }
-    return jwt.sign({id, email}, process.env.JWT_KEY, {expiresIn: "1h"})
-}
-
+  if (!process.env.JWT_KEY) {
+    throw new Error("Clave para JWT no informada");
+  }
+  return jwt.sign({ id, email }, process.env.JWT_KEY, { expiresIn: "1h" });
+};
 
 /**
  * Verifica y decodifica un token JWT usando la clave secreta.
@@ -31,17 +29,23 @@ export const generateSign = (id: string, email: string) => {
  * @param token Token JWT a verificar
  * @returns Payload decodificado (string o JwtPayload)
  */
-export const verifySign = (token: string): string  => {
-    if (!process.env.JWT_KEY) {
-        throw new Error ('Clave para JWT no informada')
+export const verifySign = (token: string): string => {
+  if (!process.env.JWT_KEY) {
+    throw new Error("Clave para JWT no informada");
+  }
+
+  // Verifica el token y obtiene el payload decodificado
+  try {
+    const payload = jwt.verify(token, process.env.JWT_KEY) as myJwtPayload;
+    return payload.id;
+  } catch (error) {
+  
+    if (error instanceof jwt.TokenExpiredError) {
+      throw new Error("Token expirado");
     }
-
-    // Aserción de tipo. Le dice a TS que trate el valor que me devuelve jwt.verify como si fuera un objeto con la forma de MyJwtPayload
-    const payload = jwt.verify(token, process.env.JWT_KEY) as myJwtPayload 
-
-    // Devuelve el id del usuario. 
-    return payload.id
-
-
-    
-}
+    if (error instanceof jwt.JsonWebTokenError) {
+      throw new Error("Token inválido");
+    }
+    throw error;
+  }
+};

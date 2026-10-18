@@ -9,9 +9,11 @@ const allowedOrigins = new Set([
 exports.corsConfig = {
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.has(origin)) {
+            console.log(`CORS allowed for origin: ${origin}`);
             callback(null, true);
             return;
         }
+        console.log(`CORS blocked for origin: ${origin}`);
         callback(null, false);
     },
     credentials: true,

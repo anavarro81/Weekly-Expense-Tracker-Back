@@ -19,15 +19,16 @@ const error_middleware_1 = require("./src/middlewares/error.middleware");
 const bd_1 = require("./config/bd");
 const app = (0, express_1.default)();
 (0, bd_1.connectDB)();
+// app.use(cors(corsConfig))
+// app.options(/(.*)/, cors(corsConfig));
+// app.use((req, res, next) => {
+//     if (req.method === 'OPTIONS') {
+//         res.sendStatus(200);
+//         return;
+//     }
+//     next();
+// });
 app.use((0, cors_1.default)(cors_2.corsConfig));
-app.options(/(.*)/, (0, cors_1.default)(cors_2.corsConfig));
-app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-        res.sendStatus(200);
-        return;
-    }
-    next();
-});
 // Permite leer los datos que vienen de un formulario
 app.use(express_1.default.json());
 app.use((req, res, next) => {

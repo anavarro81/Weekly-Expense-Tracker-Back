@@ -17,13 +17,30 @@ export const getWeeklyReport = async (req: Request, res: Response, next: NextFun
             }
 
             const token = req.headers?.authorization?.split(' ')[1];
+
+            
             
             if (!token) {
-                res.status(400).json({"error": "Usuario no autorizado"} )
+                console.error("Usuario no autorizado: token no proporcionado");
+                res.status(401).json({"error": "Usuario no autorizado"} )
                 return
             }        
+            try {
+               const userId = verifySign(token)    
+            } catch (jwtError: any) {
+
+                if (jwtError.message.includes('Token expirado')) {
+                res.status(401).json({error: "Token expirado"});
+                return;
+            }
+            if (jwtError.message.includes('Token inválido')) {
+                res.status(401).json({error: "Token inválido"});
+                return;
+            }
+            throw jwtError;
+                
+            }
             
-            const userId = verifySign(token)
             
 
             //const [weeklyLimit, expenses, numExpenses] = await Promise.all([

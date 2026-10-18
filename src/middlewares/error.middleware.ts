@@ -28,6 +28,7 @@ export const errorHandler = (error: any, req: Request, res: Response, next:NextF
         message = `Duplicate key error: The value '${value}' already exists for field '${field}'.`;
     }
     
+    console.error(`Responding with status ${status} and message: ${message}`);
     res.status(status).json({error: message} )
 }
 
