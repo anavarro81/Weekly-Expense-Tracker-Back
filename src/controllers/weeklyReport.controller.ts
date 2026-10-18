@@ -24,9 +24,12 @@ export const getWeeklyReport = async (req: Request, res: Response, next: NextFun
                 console.error("Usuario no autorizado: token no proporcionado");
                 res.status(401).json({"error": "Usuario no autorizado"} )
                 return
-            }        
+            }
+            
+            
+            let userId: string;
             try {
-               const userId = verifySign(token)    
+               userId = verifySign(token)    
             } catch (jwtError: any) {
 
                 if (jwtError.message.includes('Token expirado')) {

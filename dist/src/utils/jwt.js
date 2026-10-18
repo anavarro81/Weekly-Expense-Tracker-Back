@@ -17,7 +17,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
  */
 const generateSign = (id, email) => {
     if (!process.env.JWT_KEY) {
-        throw new Error('Clave para JWT no informada');
+        throw new Error("Clave para JWT no informada");
     }
     return jsonwebtoken_1.default.sign({ id, email }, process.env.JWT_KEY, { expiresIn: "1h" });
 };
@@ -31,12 +31,22 @@ exports.generateSign = generateSign;
  */
 const verifySign = (token) => {
     if (!process.env.JWT_KEY) {
-        throw new Error('Clave para JWT no informada');
+        throw new Error("Clave para JWT no informada");
     }
-    // Aserción de tipo. Le dice a TS que trate el valor que me devuelve jwt.verify como si fuera un objeto con la forma de MyJwtPayload
-    const payload = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY);
-    // Devuelve el id del usuario. 
-    return payload.id;
+    // Verifica el token y obtiene el payload decodificado
+    try {
+        const payload = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY);
+        return payload.id;
+    }
+    catch (error) {
+        if (error instanceof jsonwebtoken_1.default.TokenExpiredError) {
+            throw new Error("Token expirado");
+        }
+        if (error instanceof jsonwebtoken_1.default.JsonWebTokenError) {
+            throw new Error("Token inválido");
+        }
+        throw error;
+    }
 };
 exports.verifySign = verifySign;
 //# sourceMappingURL=jwt.js.map

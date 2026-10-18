@@ -55,10 +55,25 @@ const getWeeklyReport = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         };
         const token = (_b = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.split(' ')[1];
         if (!token) {
-            res.status(400).json({ "error": "Usuario no autorizado" });
+            console.error("Usuario no autorizado: token no proporcionado");
+            res.status(401).json({ "error": "Usuario no autorizado" });
             return;
         }
-        const userId = (0, jwt_1.verifySign)(token);
+        let userId;
+        try {
+            userId = (0, jwt_1.verifySign)(token);
+        }
+        catch (jwtError) {
+            if (jwtError.message.includes('Token expirado')) {
+                res.status(401).json({ error: "Token expirado" });
+                return;
+            }
+            if (jwtError.message.includes('Token inválido')) {
+                res.status(401).json({ error: "Token inválido" });
+                return;
+            }
+            throw jwtError;
+        }
         //const [weeklyLimit, expenses, numExpenses] = await Promise.all([
         const [userData, expenses, numExpenses] = yield Promise.all([
             // TODO Actualizar el limite con el limite del usuario
